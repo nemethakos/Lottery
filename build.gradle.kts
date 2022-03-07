@@ -2,8 +2,9 @@ plugins {
     java
 }
 
-tasks.compileJava {
-    options.release.set(17)
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 group = "org.example"
