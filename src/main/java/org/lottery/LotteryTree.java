@@ -1,3 +1,5 @@
+package org.lottery;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,7 +12,7 @@ import java.util.Set;
  */
 public class LotteryTree {
 
-	private LotteryTreeNode root = new LotteryTreeNode();
+	private final LotteryTreeNode root = new LotteryTreeNode();
 
 	/**
 	 * Adds 5 numbers (a lottery ticket) to the list of lottery tickets
@@ -95,25 +97,25 @@ public class LotteryTree {
 		return count;
 	}
 
-	 private void subset(int[] A, int k, int start, int currLen, boolean[] used, List<Set<Integer>> accumulator) {
+	 private void subset(int[] array, int numberOfElements, int start, int currLen, boolean[] used, List<Set<Integer>> accumulator) {
 
 		Set<Integer> set = new HashSet<>();
-		if (currLen == k) {
-			for (int i = 0; i < A.length; i++) {
+		if (currLen == numberOfElements) {
+			for (int i = 0; i < array.length; i++) {
 				if (used[i]) {
-					set.add(A[i]);
+					set.add(array[i]);
 				}
 			}
 			accumulator.add(set);
 			return;
 		}
-		if (start == A.length) {
+		if (start == array.length) {
 			return;
 		}
 		used[start] = true;
-		subset(A, k, start + 1, currLen + 1, used, accumulator);
+		subset(array, numberOfElements, start + 1, currLen + 1, used, accumulator);
 		used[start] = false;
-		subset(A, k, start + 1, currLen, used, accumulator);
+		subset(array, numberOfElements, start + 1, currLen, used, accumulator);
 	}
 
 	private void validateLotteryNumbersForCountAndNonRepetition(int requiredCount, int... numbers) {

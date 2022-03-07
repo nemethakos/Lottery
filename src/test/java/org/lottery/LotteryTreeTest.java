@@ -1,5 +1,8 @@
+package org.lottery;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.lottery.LotteryTree;
 
 import java.util.*;
 import java.util.stream.Collectors;

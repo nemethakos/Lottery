@@ -1,3 +1,5 @@
+package org.lottery;
+
 public class LotteryTreeNode {
 
 	private LotteryTreeNode[] children;
