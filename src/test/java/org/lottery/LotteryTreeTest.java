@@ -94,7 +94,7 @@ class LotteryTreeTest {
     }
 
     @Test
-    void testPrintWinners() {
+    void testWinnersText() {
 
         LotteryTree lt = new LotteryTree();
 

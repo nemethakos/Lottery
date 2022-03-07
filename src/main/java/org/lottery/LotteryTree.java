@@ -22,7 +22,7 @@ public class LotteryTree {
 	 */
 	public void addNumbers(int... numbers) {
 
-		validateLotteryNumbersForCountAndNonRepetition(5, numbers);
+		validateNumbersForCountAndNonRepetition(5, numbers);
 
 		LotteryTreeNode node = root;
 		for (var number: numbers) {
@@ -33,13 +33,13 @@ public class LotteryTree {
 	}
 
 	/**
-	 * Prints the number of winners for 5, 4, 3, 2 matches
+	 * Returns the number of winners for 5, 4, 3, 2 matches
 	 * 
 	 * @param numbers the drawn numbers
 	 * @throws IllegalArgumentException if the numbers are not valid lottery numbers
 	 */
 	public String getWinnersText(int... numbers) {
-		validateLotteryNumbersForCountAndNonRepetition(5, numbers);
+		validateNumbersForCountAndNonRepetition(5, numbers);
 		StringBuilder sb = new StringBuilder();
 
 		for (var i = 5; i >= 2; i--) {
@@ -68,7 +68,7 @@ public class LotteryTree {
 		List<Set<Integer>> accumulator = new ArrayList<>();
 		boolean[] used = new boolean[numbers.length];
 
-		subset(numbers, count, 0, 0, used, accumulator);
+		generateAllSubsetsOfArray(numbers, count, 0, 0, used, accumulator);
 
 		return accumulator;
 	}
@@ -77,7 +77,7 @@ public class LotteryTree {
 		if (numbers.length < 1 || numbers.length > 5) {
 			throw new IllegalArgumentException("Illegal count of numbers: " + numbers.length);
 		}
-		validateLotteryNumbersForCountAndNonRepetition(numbers.length, numbers);
+		validateNumbersForCountAndNonRepetition(numbers.length, numbers);
 
 		LotteryTreeNode[] nodes = new LotteryTreeNode[numbers.length];
 		LotteryTreeNode node = root;
@@ -86,7 +86,6 @@ public class LotteryTree {
 		for (int i = 0; i < numbers.length; i++) {
 			node = node.getChild(numbers[i]);
 			count = node.getCount();
-			//System.out.println("\t\t\t\t(" + (i + 1) + "): " + numbers[i] + ", c:" + count);
 			nodes[i] = node;
 		}
 
@@ -97,7 +96,7 @@ public class LotteryTree {
 		return count;
 	}
 
-	 private void subset(int[] array, int numberOfElements, int start, int currLen, boolean[] used, List<Set<Integer>> accumulator) {
+	 private void generateAllSubsetsOfArray(int[] array, int numberOfElements, int start, int currLen, boolean[] used, List<Set<Integer>> accumulator) {
 
 		Set<Integer> set = new HashSet<>();
 		if (currLen == numberOfElements) {
@@ -113,12 +112,12 @@ public class LotteryTree {
 			return;
 		}
 		used[start] = true;
-		subset(array, numberOfElements, start + 1, currLen + 1, used, accumulator);
+		generateAllSubsetsOfArray(array, numberOfElements, start + 1, currLen + 1, used, accumulator);
 		used[start] = false;
-		subset(array, numberOfElements, start + 1, currLen, used, accumulator);
+		generateAllSubsetsOfArray(array, numberOfElements, start + 1, currLen, used, accumulator);
 	}
 
-	private void validateLotteryNumbersForCountAndNonRepetition(int requiredCount, int... numbers) {
+	private void validateNumbersForCountAndNonRepetition(int requiredCount, int... numbers) {
 		if (numbers.length != requiredCount) {
 			throw new IllegalArgumentException("Five numbers required" + Arrays.toString(numbers));
 		}
