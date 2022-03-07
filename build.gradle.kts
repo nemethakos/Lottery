@@ -2,8 +2,8 @@ plugins {
     java
 }
 
-java {
-    version = 17
+tasks.compileJava {
+    options.release.set(17)
 }
 
 group = "org.example"
